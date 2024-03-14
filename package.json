@@ -1,0 +1,26 @@
+{
+  "name": "pdfkit-example",
+  "version": "1.0.0",
+  "description": "Example project using PDFKit",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "pdfkit",
+    "example"
+  ],
+  "author": "Dinesh Ravi",
+  "license": "MIT",
+  "dependencies": {
+    "blob-stream": "^0.1.3",
+    "express": "^4.18.3",
+    "pdfkit": "^0.14.0",
+    "react": "^18.2.0",
+    "reactjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

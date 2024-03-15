@@ -5,10 +5,15 @@
 
     const app = express();
 
+
+
+
     // Function to generate the PDF
     function generatePDF() {
+
         const doc = new PDFDocument({ margin: 0}); // Set margin to 50 units
         const output = fs.createWriteStream('output.pdf');
+        
 
         // Add the first page with fixed image
         doc.image('../pdftemplate/images/firstpage.jpg', { width: 612 , height: 800}); // Fixed image for the first page
@@ -46,11 +51,149 @@
                     We are Pleased to offer to you the King Air C90 Aircraft.
                     The commercials for the same will be as follows`,0,100,{align:'left'});
 
+                    doc.font('Times-Bold')
+                    .fontSize(12)
+                    .text(`Flight Details:`
+                    ,49,190,{align: 'justify',underline: true});
+
+                    const headerRow = ['Date', 'Departure', 'Arrival', 'Fly Time', 'ETD'];
+                    const cellWidth = 100;
+                    const cellHeight = 20;
+                    const headerHeight = 20;
+                    const headerColor = '#000075';
+                    const headerTextColor = 'white';
+                    const bodyTextColor = 'black';
+                    const bodyRowColors = ['lightblue', 'white'];
+                    const borderWidth = 1;
+                    
+                    // Function to draw cell with text
+                    const drawCell = (text, x, y, width, height, color, textColor) => {
+                        const textHeight = doc.heightOfString(text, { width: width });
+                        const textY = y + (height - textHeight) / 2 + textHeight * 0.25;
+                    
+                        doc.rect(x, y, width, height).fill(color).stroke('black', { width: borderWidth }); // Draw cell border
+                        doc.fillColor(textColor).font('Helvetica').fontSize(10).text(text, x, textY, {
+                            width: width,
+                            height: height,
+                            align: 'center',
+                            valign: 'center'
+                        });
+                    };
+                    
+                    // Function to draw table
+                    const drawTable = (x, y, headerRow, bodyRows) => {
+                        // Draw header row
+                        let startX = x;
+                        doc.fillColor(headerTextColor).font('Helvetica-Bold').fontSize(12);
+                        headerRow.forEach((header, index) => {
+                            drawCell(header, startX, y, cellWidth, headerHeight, headerColor, headerTextColor);
+                            startX += cellWidth;
+                        });
+                    
+                        // Draw body rows
+                        bodyRows.forEach((row, rowIndex) => {
+                            startX = x;
+                            const fillColor = bodyRowColors[rowIndex % bodyRowColors.length];
+                            doc.fillColor(bodyTextColor).font('Helvetica').fontSize(8.8);
+                            row.forEach((cell, cellIndex) => {
+                                drawCell(cell, startX, y + headerHeight + rowIndex * cellHeight, cellWidth, cellHeight, fillColor, bodyTextColor);
+                                startX += cellWidth;
+                            });
+                        });
+                    };
+                    
+                    // Adjust table position with x and y axes
+                    const adjustTablePosition = (x, y, headerRow, bodyRows) => {
+                        drawTable(x, y, headerRow, bodyRows);
+                    };
+                    
+                    // Example usage
+                    const bodyRows = [
+                        ['2024-03-14', 'New York', 'London', '8 hours', '12:00 PM'],
+                        ['2024-03-15', 'London', 'Paris', '2 hours', '02:00 PM'],
+                        ['2024-03-16', 'Paris', 'Rome', '3 hours', '04:00 PM'],
+                        ['2024-03-16', 'Paris', 'Rome', '3 hours', '04:00 PM'],
+                        ['2024-03-15', 'London', 'Paris', '2 hours', '02:00 PM'],
+                    ];
+                    
+                    // Adjust table position by providing x and y coordinates
+                    adjustTablePosition(50, 210, headerRow, bodyRows);
+                        
                     doc.image('../pdftemplate/images/900xp.jpg',0, 490, {width: 623, height: 300});
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
                 if (i === 1) {
                     addFooter = true;
+
+                    doc.font('Times-Bold')
+                    .fontSize(12)
+                    .text(`Trip Cost Estimation:`
+                    ,10,100,{align: 'justify',underline: true});
+
+
+                    const headerRow = ['Date', 'Departure', 'Arrival', 'Fly Time', 'Pax', 'Cost'];
+                    const cellWidth = 100;
+                    const cellHeight = 20;
+                    const headerHeight = 20;
+                    const headerColor = '#000075';
+                    const headerTextColor = 'white';
+                    const bodyTextColor = 'black';
+                    const bodyRowColors = ['lightblue', 'white'];
+                    const borderWidth = 1;
+                    
+                    // Function to draw cell with text
+                    const drawCell = (text, x, y, width, height, color, textColor) => {
+                        const textHeight = doc.heightOfString(text, { width: width });
+                        const textY = y + (height - textHeight) / 2 + textHeight * 0.25;
+                    
+                        doc.rect(x, y, width, height).fill(color).stroke('black', { width: borderWidth }); // Draw cell border
+                        doc.fillColor(textColor).font('Helvetica').fontSize(10).text(text, x, textY, {
+                            width: width,
+                            height: height,
+                            align: 'center',
+                            valign: 'center'
+                        });
+                    };
+                    
+                    // Function to draw table
+                    const drawTable = (x, y, headerRow, bodyRows) => {
+                        // Draw header row
+                        let startX = x;
+                        doc.fillColor(headerTextColor).font('Helvetica-Bold').fontSize(12);
+                        headerRow.forEach((header, index) => {
+                            drawCell(header, startX, y, cellWidth, headerHeight, headerColor, headerTextColor);
+                            startX += cellWidth;
+                        });
+                    
+                        // Draw body rows
+                        bodyRows.forEach((row, rowIndex) => {
+                            startX = x;
+                            const fillColor = bodyRowColors[rowIndex % bodyRowColors.length];
+                            doc.fillColor(bodyTextColor).font('Helvetica').fontSize(8.8);
+                            row.forEach((cell, cellIndex) => {
+                                drawCell(cell, startX, y + headerHeight + rowIndex * cellHeight, cellWidth, cellHeight, fillColor, bodyTextColor);
+                                startX += cellWidth;
+                            });
+                        });
+                    };
+                    
+                    // Adjust table position with x and y axes
+                    const adjustTablePosition = (x, y, headerRow, bodyRows) => {
+                        drawTable(x, y, headerRow, bodyRows);
+                    };
+                    
+                    // Example usage
+                    const bodyRows = [
+                        ['08/02/2024', 'Bangalore', 'New Delhi', '2 hrs 55 mins','Emptyleg' ,'₹ 10,20,000.00'],
+                        ['10/02/2024', 'New Delhi', 'Bhubaneswar', '2 hrs 16 mins','8' , '₹ 8,50,000.00'],
+                        ['11/02/2024', 'Bhubaneswar', 'Hyderabad, India', '1 hr 40 mins', '8' ,'₹ 5,95,000.00'],
+                        ['12/02/2024', 'Hyderabad, India', 'Chennai / Madras', '1 hr 13 mins', '8' ,'₹ 4,25,000.00'],
+                        ['13/02/2024', 'Chennai / Madras', 'Bangalore', '54 mins', 'Emptyleg' ,'₹ 3,40,000.00'],
+                    ];
+                    
+                    // Adjust table position by providing x and y coordinates
+                    adjustTablePosition(5, 120, headerRow, bodyRows);
+                    
 
                     doc.image('../pdftemplate/images/seat1.jpg',0, 500, {width: 287, height: 300});
                     doc.image('../pdftemplate/images/seat2.jpg',292, 500, {width: 320, height: 250});

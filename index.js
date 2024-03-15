@@ -193,7 +193,27 @@
                     
                     // Adjust table position by providing x and y coordinates
                     adjustTablePosition(5, 120, headerRow, bodyRows);
-                    
+
+                    doc.font('Times-Bold')
+                    .fontSize(12)
+                    .text('Cost Details:', 30,380, { lineGap: 1 ,underline:true})
+                    .text('Amount:', 500,380, {lineGap: 1 ,underline:true});
+                 
+                 doc.font('Times-Roman')
+                    .fontSize(9)
+                    .text('Total Flight Time:', 30, 400)
+                    .text('10 hrs 46 mins', 500,400)
+                    .text('Flying Cost:', 30, 420)
+                    .text('₹ 39,10,000.00',500,420)
+                    .text('GST (18%):', 30, 440)
+                    .text('₹ 7,03,800.00',500,440);
+
+                    doc.font('Times-Bold')
+                    .fontSize(9)
+                    .fillColor('#000075')
+                    .text('Grand Total:', 30, 460)
+                    .text('₹ 46,13,800.00',500,460);
+                 
 
                     doc.image('../pdftemplate/images/seat1.jpg',0, 500, {width: 287, height: 300});
                     doc.image('../pdftemplate/images/seat2.jpg',292, 500, {width: 320, height: 250});

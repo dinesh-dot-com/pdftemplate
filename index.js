@@ -25,7 +25,6 @@
 
             for (let i = 0; i < 4; i++) {
                 doc.addPage();
-                // Add Terms & Conditions only on the 4th page
                 if (i === 2) {
                     doc.font('Times-Bold') // Set font to bold
                     .fontSize(12)
@@ -88,22 +87,62 @@
                 12. The above quote is only indicative and any extra flying on account of diversions due to Air Traffic Control; extra fueling halt
                 on account of aircraft performance due to weight, altitude, temperature and range limitations will be billed at actuals,
                 after the flight is conducted in the Final Invoice.
-                
-                
+            
                 13. Smoking is not allowed on-board.
                 
                 14. Sparzana Aviation Private Limited cannot be held responsible for non-operation of charter for any unforeseen reason/s such as
                 Bad Weather,Poor Visibility, non – Availability of clearances from ATC / Defense Authorities / Civil Administration. Due to above
                 reasons, if the flight cannot take off from the Originating station full amount will be refunded (except IFS charges).`
                 ,3,100);
-                
 
+                }
+                
+                // Check if it's the 5th page and add content accordingly
+                if (i === 3) {
+                    doc.font('Times-Roman')
+                        .fontSize(8.8)
+                        .text(`
+                 15. Bank Details:`,-1,100);
+                doc.image('../pdftemplate/images/bakdetails.jpg', 67, 125, {width: 200, height: 100});
+
+                    doc.font('Times-Roman')
+                    .fontSize(8.8)
+                        .text(`
+                16. Food Beverages:
+                We would like to let you know that there are no non-vegetarian food alternatives on our aircraft, and passengers are not permitted
+                to bring or eat non-vegetarian food on board.
+
+                17. MANDATORY INFORMATION:
+                Passengers must always carry, at the time of entry and/or exit from Airports a valid Photo Identification Proof,
+                which may be 1. Passport; 2. Aadhaar Card; 3. Voter Id Card; 4. PAN Card; 5. Driving License;6. Nationalized Bank
+                Passbook with an attested photograph; 7. A Valid Government / State Government/ Armed Services issued Service
+                Photo ID card; 8. Pension Card / Disability Card with attested Photograph issued by valid Government / State Government.`,3,220);
+
+
+                            doc.font('Times-Bold')
+                            .fontSize(8.9)
+                            .text(
+                `Dear Guest`,36,350);
+
+                            doc.font('Times-Roman')
+                            .fontSize(8.8)
+                            .text(`
+
+                                Greetings from SPARZANA AVIATION PRIVATE LIMITED!!!
+
+                                You are requested to kindly avoid carrying the following items equipment’s along with you while boarding the aircraft. These items are prohibited to be carried onboard by the Director General of Civil Aviation of India.
+
+                                The client hereby agrees to the terms and conditions of the charter as defined above.
+                            `, 3,590);
 
 
                 }
             }
 
-        
+            
+
+            
+
 
         // Finalize PDF and save
         doc.pipe(output);

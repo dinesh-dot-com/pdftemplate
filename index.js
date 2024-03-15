@@ -18,13 +18,26 @@
             doc.image('../pdftemplate/images/header.png', { width: 613, align: 'center' });
         });
 
+        let addFooter = false;
+
         // Add footer with image to each page
         doc.on('pageAdded', () => {
-            doc.image('../pdftemplate/images/footer.png', { width: 613, align: 'center', y: doc.page.height - 72 });
+            if (addFooter) {
+                doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
+            }
         });
 
             for (let i = 0; i < 4; i++) {
                 doc.addPage();
+
+                if (i === 0) {
+                    addFooter = true;
+                    doc.font('Times-Roman')
+                        .fontSize(8.8)
+                        .text('First');
+                    doc.image('../pdftemplate/images/900xp.jpg',0, 490, {width: 623, height: 300});
+                    doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
+                }
                 if (i === 2) {
                     doc.font('Times-Bold') // Set font to bold
                     .fontSize(12)
@@ -142,15 +155,15 @@
                 The client hereby agrees to the terms and conditions of the charter as defined above.
                             `, 6,460);
 
-                doc.image('../pdftemplate/images/discription.png', 43, 490, {width: 490, height: 100});
+                doc.image('../pdftemplate/images/discription.png', 41, 490, {width: 490, height: 100});
 
                 doc.font('Times-Bold')
                             .fontSize(9)
                             .text(`
                 For SPARZANA AVIATION PRIVATE LIMITED                                                                                                          For Client
-                            `, 6,620);
+                            `, 6,630);
 
-                doc.image('../pdftemplate/images/sparzana.png', 80, 660, {width: 90, height: 60});
+                doc.image('../pdftemplate/images/sparzana.png', 84, 670, {width: 90, height: 60});
 
                 }
             }

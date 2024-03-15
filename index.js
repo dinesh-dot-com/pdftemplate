@@ -38,6 +38,15 @@
                     doc.image('../pdftemplate/images/900xp.jpg',0, 490, {width: 623, height: 300});
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
+                if (i === 1) {
+                    addFooter = true;
+                    doc.font('Times-Roman')
+                        .fontSize(8.8)
+                        .text('First');
+                    doc.image('../pdftemplate/images/seat1.jpg',0, 500, {width: 287, height: 300});
+                    doc.image('../pdftemplate/images/seat2.jpg',292, 500, {width: 320, height: 250});
+                    doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
+                }
                 if (i === 2) {
                     doc.font('Times-Bold') // Set font to bold
                     .fontSize(12)

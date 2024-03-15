@@ -27,14 +27,12 @@
             }
         });
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 5; i++) {
                 doc.addPage();
 
                 if (i === 0) {
                     addFooter = true;
-                    doc.font('Times-Roman')
-                        .fontSize(8.8)
-                        .text('First');
+
                     doc.image('../pdftemplate/images/900xp.jpg',0, 490, {width: 623, height: 300});
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
@@ -48,6 +46,30 @@
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
                 if (i === 2) {
+
+                    doc.image('../pdftemplate/images/specification2.JPG',50, 100, {width: 300, height: 250});
+                    doc.image('../pdftemplate/images/ls.png',420, 100, {width: 70, height: 350});
+
+                    doc.font('Times-Bold')
+                    .fontSize(12)
+                    .text(`Please Note:`
+                    ,3,590,{align: 'center',underline: true});
+                    doc.font('Times-Roman')
+                    .fontSize(8.8)
+                    .text(`
+                    1. All quotations/options provided above are subject to all necessary permission and aircraft availability at the time of charter confirmation.
+                    
+                    2. Airport Handling Charges are approximation, this will be charged on actuals.
+                    
+                    3. Flying time approximate may change on actuals.
+                    
+                    4. TBL for pilots for any waiting beyond 4 hours or over night journeys will be chargeable extra on Actuals.
+                    
+                    5. This Quotes will valid for 24 Hours, but does not Guarantee a reservation/ Booking. Aircraft booking are always on first come first served basis.`
+                ,10,610);
+
+                }
+                if (i === 3) {
                     doc.font('Times-Bold') // Set font to bold
                     .fontSize(12)
                     .text('Terms & Conditions:', {
@@ -120,7 +142,7 @@
                 }
                 
                 // Check if it's the 5th page and add content accordingly
-                if (i === 3) {
+                if (i === 4) {
                     doc.font('Times-Roman')
                         .fontSize(8.8)
                         .text(`

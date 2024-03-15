@@ -102,7 +102,7 @@
                     doc.font('Times-Roman')
                         .fontSize(8.8)
                         .text(`
-                 15. Bank Details:`,-1,100);
+                15. Bank Details:`,-1,100);
                 doc.image('../pdftemplate/images/bakdetails.jpg', 67, 125, {width: 200, height: 100});
 
                     doc.font('Times-Roman')
@@ -127,23 +127,33 @@
                             doc.font('Times-Roman')
                             .fontSize(8.8)
                             .text(`
+                Greetings from SPARZANA AVIATION PRIVATE LIMITED!!!`, 1,360);
 
-                                Greetings from SPARZANA AVIATION PRIVATE LIMITED!!!
+                            doc.font('Times-Roman')
+                            .fontSize(8)
+                            .text(`
+                You are requested to kindly avoid carrying the following items equipment’s along with you while boarding the aircraft. These items are prohibited to be
+                carried onboard by the Director General of Civil Aviation of India. The client here by agrees to the terms and conditions of the charter as defined above.
+                            `, 6,390);
 
-                                You are requested to kindly avoid carrying the following items equipment’s along with you while boarding the aircraft. These items are prohibited to be carried onboard by the Director General of Civil Aviation of India.
+                            doc.font('Times-Bold')
+                            .fontSize(9)
+                            .text(`
+                The client hereby agrees to the terms and conditions of the charter as defined above.
+                            `, 6,460);
 
-                                The client hereby agrees to the terms and conditions of the charter as defined above.
-                            `, 3,590);
+                doc.image('../pdftemplate/images/discription.png', 43, 490, {width: 490, height: 100});
 
+                doc.font('Times-Bold')
+                            .fontSize(9)
+                            .text(`
+                For SPARZANA AVIATION PRIVATE LIMITED                                                                                                          For Client
+                            `, 6,620);
+
+                doc.image('../pdftemplate/images/sparzana.png', 80, 660, {width: 90, height: 60});
 
                 }
             }
-
-            
-
-            
-
-
         // Finalize PDF and save
         doc.pipe(output);
         doc.end();

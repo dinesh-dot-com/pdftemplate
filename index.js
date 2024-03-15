@@ -149,9 +149,7 @@
                 Bad Weather,Poor Visibility, non – Availability of clearances from ATC / Defense Authorities / Civil Administration. Due to above
                 reasons, if the flight cannot take off from the Originating station full amount will be refunded (except IFS charges).`
                 ,3,100);
-
                 }
-                
                 // Check if it's the 5th page and add content accordingly
                 if (i === 4) {
                     doc.font('Times-Roman')

@@ -32,28 +32,39 @@
 
                 if (i === 0) {
                     addFooter = true;
+                    doc.font('Times-Roman')
+                    .fontSize(8.8)
+                    .text(`
+                    Aircraft:
+                    Serial No. :
+                    Date : `,400,100,{align:'left'});
+                    doc.font('Times-Roman')
+                    .fontSize(8.8)
+                    .text(`
+                    Dear Sir/Madam,
+                
+                    We are Pleased to offer to you the King Air C90 Aircraft.
+                    The commercials for the same will be as follows`,0,100,{align:'left'});
 
                     doc.image('../pdftemplate/images/900xp.jpg',0, 490, {width: 623, height: 300});
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
                 if (i === 1) {
                     addFooter = true;
-                    doc.font('Times-Roman')
-                        .fontSize(8.8)
-                        .text('First');
+
                     doc.image('../pdftemplate/images/seat1.jpg',0, 500, {width: 287, height: 300});
                     doc.image('../pdftemplate/images/seat2.jpg',292, 500, {width: 320, height: 250});
                     doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                 }
                 if (i === 2) {
 
-                    doc.image('../pdftemplate/images/specification2.JPG',50, 100, {width: 300, height: 250});
-                    doc.image('../pdftemplate/images/ls.png',420, 100, {width: 70, height: 350});
+                    doc.image('../pdftemplate/images/specification2.JPG',50, 100, {width: 280, height: 250});
+                    doc.image('../pdftemplate/images/ls.png',420, 100, {width: 70, height: 300});
 
                     doc.font('Times-Bold')
                     .fontSize(12)
                     .text(`Please Note:`
-                    ,3,590,{align: 'center',underline: true});
+                    ,0,590,{align: 'center',underline: true});
                     doc.font('Times-Roman')
                     .fontSize(8.8)
                     .text(`
@@ -66,7 +77,7 @@
                     4. TBL for pilots for any waiting beyond 4 hours or over night journeys will be chargeable extra on Actuals.
                     
                     5. This Quotes will valid for 24 Hours, but does not Guarantee a reservation/ Booking. Aircraft booking are always on first come first served basis.`
-                ,10,610);
+                ,0,610);
 
                 }
                 if (i === 3) {

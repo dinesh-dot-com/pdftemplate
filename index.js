@@ -1,6 +1,9 @@
+
+
         const express = require('express');
         const PDFDocument = require('pdfkit');
         const fs = require('fs');
+        
         const exec = require('child_process').exec;
 
         const app = express();
@@ -220,8 +223,78 @@
                         doc.image('../pdftemplate/images/footer.png', { width: 769, align: 'center', y: doc.page.height - 78, x: doc.page.height - 945 });
                     }
                     if (i === 2) {
+                        doc.font('Times-Bold')
+                        .fontSize(12)
+                        .text('Aircraft Specification', 130, 100,{ align: 'left', underline: true });
+                 
+                     const headerRow = ['Attribute', 'Value'];
+                     const tableWidth = 290; // Adjusted width for the entire table
 
-                        doc.image('../pdftemplate/images/specification2.JPG',50, 100, {width: 280, height: 250});
+                     const numOfColumns = headerRow.length;
+                     const cellWidth = tableWidth / numOfColumns; // Adjusted width for each cell
+                     const cellHeight = 20; // Adjusted height for each cell
+                     const headerHeight = 40; // Adjusted height for header
+                     const headerColor = '#000075';
+                     const headerTextColor = 'white';
+                     const bodyTextColor = 'black';
+                     const bodyRowColors = ['lightblue', 'white'];
+                     const borderWidth = 1;
+                 
+                     // Function to draw cell with text
+                     const drawCell = (text, x, y, width, height, color, textColor) => {
+                         const textHeight = doc.heightOfString(text, { width: width });
+                         const textY = y + (height - textHeight) / 2 + textHeight * 0.25;
+                 
+                         doc.rect(x, y, width, height).fill(color).stroke('black', { width: borderWidth }); // Draw cell border
+                         doc.fillColor(textColor).font('Helvetica').fontSize(10).text(text, x, textY, {
+                             width: width,
+                             height: height,
+                             align: 'center',
+                             valign: 'center'
+                         });
+                     };
+                 
+                     // Function to draw table
+                     const drawTable = (x, y, headerRow, bodyRows) => {
+                         // Draw header row
+                         let startX = x;
+                         doc.fillColor(headerTextColor).font('Helvetica-Bold').fontSize(12);
+                         headerRow.forEach((header, index) => {
+                             drawCell(header, startX, y, cellWidth, headerHeight, headerColor, headerTextColor);
+                             startX += cellWidth;
+                         });
+                 
+                         // Draw body rows
+                         bodyRows.forEach((row, rowIndex) => {
+                             startX = x;
+                             const fillColor = bodyRowColors[rowIndex % bodyRowColors.length];
+                             doc.fillColor(bodyTextColor).font('Helvetica').fontSize(8);
+                             row.forEach((cell, cellIndex) => {
+                                 drawCell(cell, startX, y + headerHeight + rowIndex * cellHeight, cellWidth, cellHeight, fillColor, bodyTextColor);
+                                 startX += cellWidth;
+                             });
+                         });
+                     };
+                 
+                     // Example usage
+                     const bodyRows = [
+                         ['Aircraft Type', 'Hawker 800XP'],
+                         ['Baggage Capacity', '3 Large size trolley Bags & 4 Small Size Trolley Bags'],
+                         ['Cruise Speed', '448 kts'],
+                         ['Max Passenger', '8'],
+                         ['Year of Manufacture', '1999'],
+                         ['Home Base', 'Chennai'],
+                         ['Pilots', '2'],
+                         ['Max. Range / Flying Range', '2539'],
+                         ['Stand up cabin', 'Yes / 5.9 ft.'],
+                         ['Cabin width', '6 ft.'],
+                         ['Cabin length', '21.3 ft.'],
+                         ['Lavatory', 'Yes']
+                     ];
+                 
+                     // Adjust table position by providing x and y coordinates
+                     drawTable(50, 120, headerRow, bodyRows);
+
                         doc.image('../pdftemplate/images/ls.png',420, 100, {width: 70, height: 300});
 
                         doc.font('Times-Bold')
@@ -229,7 +302,7 @@
                         .text(`Please Note:`
                         ,0,590,{align: 'center',underline: true});
                         doc.font('Times-Roman')
-                        .fontSize(8.8)
+                        .fontSize(8)
                         .text(`
                         1. All quotations/options provided above are subject to all necessary permission and aircraft availability at the time of charter confirmation.
                         
@@ -241,6 +314,7 @@
                         
                         5. This Quotes will valid for 24 Hours, but does not Guarantee a reservation/ Booking. Aircraft booking are always on first come first served basis.`
                     ,0,610);
+                    doc.moveDown();
 
                     }
                     if (i === 3) {
